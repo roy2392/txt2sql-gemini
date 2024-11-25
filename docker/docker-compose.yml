@@ -30,6 +30,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=example
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    env_file:
+      - ../.env
     ports:
       - "8000:8000"
     depends_on:

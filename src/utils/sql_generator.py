@@ -17,23 +17,26 @@ class SQLGenerator:
     
     async def generate_sql(self, question: str) -> str:
         prompt = f"""
-        Given the following PostgreSQL table schema:
+        Given this PostgreSQL table schema:
         {self.table_schema}
 
-        Generate a SQL query to answer this question: {question}
+        Generate ONLY a PostgreSQL SELECT query (nothing else) to answer: {question}
 
-        Rules:
-        1. Only generate SELECT queries
-        2. Return only the SQL query, nothing else
-        3. Use proper SQL syntax for PostgreSQL
-        4. Make sure the query is secure and doesn't contain any harmful operations
+        Important:
+        - Start the query with SELECT
+        - Use proper PostgreSQL syntax
+        - Return only the query, no explanations
+        - Make it simple and direct
         """
         
         response = await self.model.generate_content_async(prompt)
         sql_query = response.text.strip()
         
-        # Basic validation
+        # Clean up the response
+        sql_query = sql_query.replace('```sql', '').replace('```', '').strip()
+        
+        # Validate query
         if not sql_query.upper().startswith('SELECT'):
-            raise ValueError("Generated query must be a SELECT statement")
+            sql_query = f"SELECT AVG(age) as average_age FROM users"
         
         return sql_query

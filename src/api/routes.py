@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from .models import QuestionRequest, QueryResponse
-from ..database.db_manager import DatabaseManager
-from ..llm.gemini_client import GeminiClient
-from ..utils.sql_generator import SQLGenerator
+from database.db_manager import DatabaseManager
+from llm.gemini_client import GeminiClient
+from utils.sql_generator import SQLGenerator
 
 app = FastAPI()
 db_manager = DatabaseManager()

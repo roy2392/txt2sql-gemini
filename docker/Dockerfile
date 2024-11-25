@@ -22,7 +22,7 @@ COPY tests/ ./tests/
 COPY .env .
 
 # Set Python path
-ENV PYTHONPATH=/app
+ENV PYTHONPATH="${PYTHONPATH}:/app/src"
 
 # Expose the port the app runs on
 EXPOSE 8000

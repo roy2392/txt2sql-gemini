@@ -8,6 +8,20 @@ A FastAPI application that converts natural language questions to SQL queries us
 	•	Automated database initialization
 	•	Health monitoring
 	•	Comprehensive test suite
+## Architecture Overview
+    ```mermaid
+    graph LR
+    A[Client Request] --> B[FastAPI Endpoint]
+    B --> C[SQL Generator]
+    C --> D[Gemini LLM]
+    D --> C
+    C --> E[Database Manager]
+    E --> F[PostgreSQL]
+    F --> E
+    E --> B
+    B --> G[Natural Language Response]
+    G --> H[Client Response]
+    ```
 ## Prerequisites
 	•	Docker and Docker Compose
 	•	Google Cloud API key for Gemini LLM
